@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Play, Clock, CheckCircle, XCircle, Code, Copy, Download, AlertTriangle } from 'lucide-react';
+import { Play, Clock, CheckCircle, XCircle, Code, Copy, Download, AlertTriangle, Settings } from 'lucide-react';
 import { apiEndpoints } from '../data/apiEndpoints';
 import { apiTester } from '../services/apiTester';
 import { ApiTestResult, TestCase } from '../types/api';
@@ -11,6 +11,7 @@ export const ApiTester: React.FC = () => {
   const [testResults, setTestResults] = useState<Record<string, ApiTestResult>>({});
   const [isRunning, setIsRunning] = useState<Record<string, boolean>>({});
   const [customParameters, setCustomParameters] = useState<Record<string, any>>({});
+  const [baseUrl, setBaseUrl] = useState("https://metical-converter.israelmatusse.com")
 
   const runTest = async (testCase: TestCase, endpointId: string) => {
     const testKey = `${endpointId}-${testCase.name}`;
@@ -132,6 +133,19 @@ export const ApiTester: React.FC = () => {
             }`}>
               Teste todos os endpoints da API de conversão de moedas
             </p>
+             <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 text-sm text-slate-400">
+              <Settings className="w-4 h-4" />
+              <span>API Base:</span>
+            </div>
+            <input
+              value={baseUrl}
+              onChange={(e) => setBaseUrl(e.target.value)}
+              className="bg-slate-800 border-slate-600 text-white text-sm h-8 w-80"
+              placeholder="https://api.medicalconverter.com/v1"
+              disabled
+            />
+          </div>
           </div>
           
           <div className="flex items-center space-x-3">
